@@ -1,0 +1,44 @@
+{
+    "data": {
+        "pages": [
+            {
+                "label": "Home",
+                "redirect": "/faaspot/token",
+                "url": "/"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "icon": "fa fa-cube",
+                                "label": "凭证配置",
+                                "schemaApi": "get:${adminfile('')}/pages/env-settoken.json",
+                                "url": "/faaspot/token"
+                            },
+                            {
+                                "icon": "fas fa-address-book",
+                                "label": "用户信息",
+                                "schemaApi": "get:${adminfile('')}/pages/env-userinfo.json",
+                                "url": "/faaspot/permission"
+                            },
+                            {
+                                "icon": "fas fa-flask",
+                                "label": "凭证生成",
+                                "schemaApi": "get:${adminfile('')}/pages/env-gentoken.json",
+                                "url": "/faaspot/gentoken"
+                            }
+                        ],
+                        "icon": "fa fa-cubes",
+                        "label": "用户管理",
+                        "rewrite": "/faaspot/token",
+                        "url": "/faaspot"
+                    }
+                ],
+                "label": ""
+            }
+        ]
+    },
+    "msg": "",
+    "status": 0
+}

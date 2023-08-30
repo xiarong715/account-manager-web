@@ -1,0 +1,43 @@
+{
+  "type": "page",
+  "title": "",
+  "body": {
+    "type": "form",
+    "title": "凭证生成",
+    "name": "detailForm",
+    "api":{
+      "method":"post",
+      "url":"${admin('')}/_api",
+      "data":{
+        "action":"gen_token",
+        "payload":"${payload}"
+      }
+    },
+    "mode": "horizontal",
+    "body": [
+      {
+        "name": "payload",
+        "type": "textarea",
+        "label": "有效负载：",
+        "required": true,
+        "validations": {
+          "isJson": true
+        },
+        "value":"{\"u\":\"gogs-code\"}"
+      },
+      {
+        "name": "token",
+        "type": "static",
+        "label": "凭证："
+      }
+    ],
+    "actions": [
+      {
+        "name": "submit",
+        "type": "submit",
+        "label": "生成",
+        "level": "primary"
+      }
+    ]
+  }
+}

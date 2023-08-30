@@ -1,0 +1,125 @@
+{
+  "type": "page",
+  "body": [
+    {
+      "type": "crud",
+      "api": {
+        "method": "post",
+        "url": "${admin('')}/_api",
+        "data": {
+          "action": "init_apptoken"
+        }
+      },
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "hidden": true
+        },
+        {
+          "name": "appname",
+          "label": "服务名"
+        },
+        {
+          "name": "apptoken",
+          "label": "服务TOKEN"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "icon": "fa fa-edit",
+              "className": "mr-4",
+              "tooltip": "编辑",
+              "actionType": "dialog",
+              "dialog": {
+                "title": "修改服务TOKEN",
+                "body": {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "${admin('')}/_api",
+                    "data": {
+                      "action": "modify_apptoken",
+                      "appname": "${appname}",
+                      "apptoken": "${apptoken}"
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "appname",
+                      "label": "服务名：",
+                      "disabled": true
+                    },
+                    {
+                      "type": "textarea",
+                      "name": "apptoken",
+                      "label": "服务TOKEN: ",
+                      "required": true,
+                      "validateOnChange": true,
+                      "validations": {
+                        "matchRegexp": "/[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*/g"
+                      },
+                      "validationErrors": {
+                        "matchRegexp": "请输入正确格式的token"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "tooltip": "删除",
+              "disabledOn": "",
+              "icon": "fa fa-times",
+              "confirmText": "您确定要移除该条目?",
+              "actionType": "ajax",
+              "api": {
+                "method": "post",
+                "url": "${admin('')}/_api",
+                "data": {
+                  "action": "del_apptoken",
+                  "appname": "${appname}"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "label": "新增",
+      "actionType": "dialog",
+      "level": "primary",
+      "className": "m-b-sm",
+      "dialog": {
+        "title": "新增服务TOKEN",
+        "body": {
+          "type": "form",
+          "reload":"crud",
+          "preventEnterSubmit":true,
+          "api": {
+            "method": "post",
+            "url": "${admin('')}/_api",
+            "data": {
+              "action": "add_apptoken",
+              "appname": "${appname}"
+            }
+          },
+          "body": [
+            {
+              "type": "input-text",
+              "name": "appname",
+              "label": "服务名：",
+              "placeholder": "gogs-lsy",
+              "required": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

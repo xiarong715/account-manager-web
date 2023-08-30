@@ -1,0 +1,84 @@
+{
+  "type": "page",
+  "title": "",
+  "remark": null,
+  "toolbar": {
+    "type": "button",
+    "label": "返回列表",
+    "actionType": "link",
+    "link": "/faaspot/userlist"
+  },
+  "toolbarClassName": "crud-table-toolbar",
+  "body": [
+    {
+      "type": "crud",
+      "api": {
+        "method": "post",
+        "url": "${admin('')}/_api",
+        "data": {
+          "action": "init_user_permission",
+          "username": "${params.username}"
+        }
+      },
+      "columns": [
+        {
+          "name": "username",
+          "label": "用户名",
+          "searchable": true
+        },
+        {
+          "name": "appname",
+          "label": "服务名",
+          "searchable": true
+        },
+        {
+          "name": "permission",
+          "label": "启用开关",
+          "quickEdit": {
+            "type": "switch",
+            "name": "switch",
+            "mode": "inline",
+            "onText": "开启",
+            "offText": "关闭"
+          }
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "label": "增加",
+      "level": "primary",
+      "actionType": "dialog",
+      "dialog": {
+        "title": "增加权限",
+        "body": {
+          "type": "form",
+          "initApi":{
+            "method":"post",
+            "url":"${admin('')}/_api",
+            "data":{
+              "action":"init_not_configured_permissions",
+              "username":"${params.username}"
+            }
+          },
+          "api":{
+            "method":"post",
+            "url":"${admin('')}/_api",
+            "data":{
+              "action":"add_user_permission",
+              "username":"${params.username}",
+              "appnames":"${select}"
+            }
+          },
+          "body":{
+            "type":"select",
+            "name":"select",
+            "label":"可增加的权限：",
+            "multiple":true,
+            "source":"${items}"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="xterm.css" />
+    <script src="xterm.js"></script>
+    <script src="xterm-addon-fit.js"></script>
+    <script src="xterm-addon-attach.js"></script>
+    <script src="../../_env/env.js"></script>
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script>
+      var term = new Terminal({
+        rendererType: "canvas", //渲染类型
+        rows: 40, //行数
+        convertEol: true, //启用时，光标将设置为下一行的开头
+        scrollback: 50, //终端中的回滚量
+        disableStdin: false, //是否应禁用输入
+        // cursorStyle: "underline", //光标样式
+        cursorBlink: true, //光标闪烁
+        theme: {
+          foreground: "#ECECEC", //字体
+          background: "#000000", //背景色
+          cursor: "help", //设置光标
+          lineHeight: 20
+        }
+      });
+      var s=ADMIN_URL+"/_api/xterm"
+      // var socket = new WebSocket('ws://192.168.116.129:8081/faas/_api/xterm')
+      var socket = new WebSocket(s.replace(/^http/,'ws'))
+      var attachAddon = new AttachAddon.AttachAddon(socket)
+      var fitAddon = new FitAddon.FitAddon()
+      term.loadAddon(attachAddon)
+      term.loadAddon(fitAddon)
+      term.open(document.getElementById('terminal'))
+      fitAddon.fit()
+      term.focus()
+    </script>
+  </body>
+</html>

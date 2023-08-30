@@ -1,0 +1,48 @@
+{
+  "type": "page",
+  "body": [
+    {
+      "type": "crud",
+      "mode": "cards",
+      "api": {
+        "method": "post",
+        "url": "${admin('')}/_api",
+        "data": {
+          "action": "init_user_list"
+        }
+      },
+      "placeholder": "没有用户",
+      "card": {
+        "header": {
+          "avatarText": "${username|substring:0:2|upperCase}",
+          "title": "${username}",
+          "avatarClassName": "pull-left thumb b-3x m-r",
+          "avatarTextBackground": [
+            "#FFB900",
+            "#D83B01",
+            "#B50E0E",
+            "#E81123",
+            "#B4009E",
+            "#5C2D91",
+            "#0078D7",
+            "#00B4FF",
+            "#008272"
+          ]
+        },
+        "body": [
+          {
+            "type": "static",
+            "name": "permissions"
+          }
+        ],
+        "bodyClassName": "bg-yellow-50",
+        "headerClassName": "bg-yellow-500",
+        "itemAction": {
+          "type": "button",
+          "actionType": "link",
+          "link": "/faaspot/${username}/info"
+        }
+      }
+    }
+  ]
+}
